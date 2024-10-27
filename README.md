@@ -1,7 +1,7 @@
-# Cryptoformer  
+# Cryptoformer : leaderboard rank increase forecast for crypto tokens 
 
-Fetches the top 5000 on coingekco every hour and stores them in a postgresSQL DB on a server  
-Automatically adds to a google sheets which tokens have experienced the biggest rank increase (+ relative increase in %), it's a powerful metric to detect trends (& can then be extended to other crypto data sources but also reddit for fun useful life info (see /scraping)  
-Then, the idea was/is to train a transformer model to classify wether a token wil experience a drastic decrease in price/rank after a given horizon (a day, 12h, a week ?), will stay roughly neutral or will explode in price   
-
-Had to quit for the summer, still cooking !
+Fetches and stores the top 5000 tokens on the coingecko leaderboard every hour
+Computes the rank increase with different timescales (hourly, daily, weekly) : because it's relative to the performance of neighbouring tokens, it's more powerful than just tracking price increase  
+Create a dataset with classes : will a token : looses price by more than -30% the next day, stay roughly neutral, will increase by more than +30%
+Idea is that you can't forecast the price, but you can detect FOMO and exploding tokens might have a common pattern
+Transformer model to process the time series, compute the enriched last timestep vector with attention, and use this enriched 1D vector for each token to map it to the category and train a simple classifier
